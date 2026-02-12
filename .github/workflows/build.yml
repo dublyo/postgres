@@ -16,6 +16,7 @@ jobs:
       contents: read
       packages: write
     strategy:
+      fail-fast: false
       matrix:
         pg_version: ["16", "17", "18"]
     steps:

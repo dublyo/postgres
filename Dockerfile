@@ -10,7 +10,7 @@ RUN apk add --no-cache --virtual .build-deps git build-base && \
     MKFILE="/usr/local/lib/postgresql/pgxs/src/Makefile.global" && \
     if [ -f "$MKFILE" ]; then sed -i 's/^with_llvm.*/with_llvm = no/' "$MKFILE"; fi && \
     cd /tmp && \
-    git clone --branch v0.8.0 https://github.com/pgvector/pgvector.git && \
+    git clone --branch v0.8.1 https://github.com/pgvector/pgvector.git && \
     cd pgvector && \
     make && make install && \
     cd / && rm -rf /tmp/pgvector && \
