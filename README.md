@@ -2,7 +2,7 @@
 
 Production-ready PostgreSQL Docker image with SSL encryption, popular extensions, and performance tuning.
 
-Built for [Dublyo](https://dublyo.xyz) PaaS — auto-deployed to Hetzner Cloud servers via Portainer.
+Built for [Dublyo](https://dublyo.com) PaaS — auto-deployed to Hetzner Cloud servers via Portainer.
 
 ## Versions
 

@@ -4,13 +4,15 @@ FROM postgres:${PG_VERSION}-alpine
 # Alpine uses ash/sh, not bash — all scripts must use #!/bin/sh
 RUN apk add --no-cache openssl
 
-# Install pgvector from source
-# with_llvm=no skips LLVM bitcode compilation (JIT optimization — not needed)
+# Install pgvector from source (latest release for best PG compatibility)
+# Disable LLVM bitcode in pgxs config to avoid clang dependency
 RUN apk add --no-cache --virtual .build-deps git build-base && \
+    MKFILE="/usr/local/lib/postgresql/pgxs/src/Makefile.global" && \
+    if [ -f "$MKFILE" ]; then sed -i 's/^with_llvm.*/with_llvm = no/' "$MKFILE"; fi && \
     cd /tmp && \
     git clone --branch v0.8.0 https://github.com/pgvector/pgvector.git && \
     cd pgvector && \
-    make USE_PGXS=1 with_llvm=no && make USE_PGXS=1 with_llvm=no install && \
+    make && make install && \
     cd / && rm -rf /tmp/pgvector && \
     apk del .build-deps
 
